@@ -1,4 +1,4 @@
-package edu.ucalgary.ensf480.group18.theatre_system;
+package edu.ucalgary.ensf480.group18;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

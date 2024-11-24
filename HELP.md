@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'edu.ucalgary.ensf480.group18.theatre-system' is invalid and this project uses 'edu.ucalgary.ensf480.group18.theatre_system' instead.
+* The original package name 'edu.ucalgary.ensf480.group18.theatre-system' is invalid and this project uses 'edu.ucalgary.ensf480.group18.user' instead.
 
 # Getting Started
 

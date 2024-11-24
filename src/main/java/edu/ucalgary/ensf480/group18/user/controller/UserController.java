@@ -1,10 +1,10 @@
-package edu.ucalgary.ensf480.group18.theatre_system.controller;
+package edu.ucalgary.ensf480.group18.user.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController {
+public class UserController {
     @GetMapping("/")
     public String home(Model model) {
         // Add data to the model to display in the view
