@@ -2,9 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Theatre System</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="/js/index.js" defer></script>
 </head>
 <body>
-<h1>Index html</h1>
+<header class="top-bar">
+    <div class="search-bar">
+        <label>
+            <input type="text" placeholder="Search...">
+        </label>
+    </div>
+    <div class="website-name">
+        <h1>Theater System</h1>
+    </div>
+    <div class="account-section">
+        <div id="account-info" th:if="${loggedIn}">
+            <a th:text="${VIP_message}"></a>
+            <button class="account-button">Account</button>
+        </div>
+        <div id="sign-in-up" th:unless="${loggedIn}">
+            <button class="account-button"><a href="/sign-up" style="text-decoration: none; color: #eee">Sign up</a></button>
+            <button class="account-button"><a href="/sign-in" style="text-decoration: none; color: #eee">Sign in</a></button>
+        </div>
+    </div>
+</header>
+<div class="movie-grid" id="movie-grid"></div>
+
+<!-- Details block template (hidden by default) -->
+<div class="details-block" id="details-block" style="display: none;">
+    <div class="details-left">
+        <h2 class="details-title">Title</h2>
+        <p class="details-actors">Actors: </p>
+        <p class="details-duration">Duration: </p>
+    </div>
+    <div class="details-right">
+        <button class="btn-watch-trailer">Watch Trailer</button>
+        <button class="btn-buy-ticket">Buy Ticket</button>
+    </div>
+</div>
 </body>
 </html>
