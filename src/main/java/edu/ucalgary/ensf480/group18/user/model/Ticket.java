@@ -9,7 +9,7 @@ import java.util.List;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ticketId;
+    private Long ticketId;
 
     @ManyToOne
     @JoinColumn(name = "usrEmail")
@@ -31,11 +31,11 @@ public class Ticket {
         this.isPurchased = isPurchased;
     }
 
-    public int getTicketId() {
+    public Long getTicketId() {
         return ticketId;
     }
 
-    public void setTicketId(int ticketId) {
+    public void setTicketId(Long ticketId) {
         this.ticketId = ticketId;
     }
 

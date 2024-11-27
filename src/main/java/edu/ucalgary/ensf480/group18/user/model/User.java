@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "USER")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
