@@ -5,6 +5,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+// temp class
+class Movie {
+    private String title;
+    private String cover;
+    private String actors;
+    private String duration;
+
+    public Movie(String title, String cover, String actors, String duration) {
+        this.title = title;
+        this.cover = cover;
+        this.actors = actors;
+        this.duration = duration;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public String getActors() {
+        return actors;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+}
+
 @RestController
 public class ApiController {
     @GetMapping("/api/movies")

@@ -6,37 +6,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
-// temp class
-class Movie {
-    private String title;
-    private String cover;
-    private String actors;
-    private String duration;
-
-    public Movie(String title, String cover, String actors, String duration) {
-        this.title = title;
-        this.cover = cover;
-        this.actors = actors;
-        this.duration = duration;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getCover() {
-        return cover;
-    }
-
-    public String getActors() {
-        return actors;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-}
-
 @Controller
 public class WebpageController {
     @GetMapping("/")
@@ -68,6 +37,11 @@ public class WebpageController {
     @GetMapping("/sign-up")
     public String signUp(@CookieValue(name = "USER_TOKEN", defaultValue = "none") String userToken) {
         return "sign-up";
+    }
+
+    @GetMapping("/sign-in")
+    public String signIn(@CookieValue(name = "USER_TOKEN", defaultValue = "none") String userToken) {
+        return "sign-in";
     }
 }
 

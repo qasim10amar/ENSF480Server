@@ -1,6 +1,5 @@
 package edu.ucalgary.ensf480.group18.user.model;
 
-
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -34,8 +33,6 @@ public class User {
     public void setUsrEmail(String usrEmail) {
         this.usrEmail = usrEmail;
     }
-
-
 
     public RefundStrategy getRefundStrategy() {
         return refundStrategy;
