@@ -8,8 +8,8 @@ public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seatID;
-    private int row;
-    private int column;
+    private int seatRow;
+    private int seatColumn;
     @Column(name = "isReserved")
     private Boolean isReserved;
 
@@ -25,8 +25,8 @@ public class Seat {
     }
 
     public Seat(int row, int column, Boolean isReserved, Theater theater, Movie movie) {
-        this.row = row;
-        this.column = column;
+        this.seatRow = row;
+        this.seatColumn = column;
         this.isReserved = isReserved;
         this.theater = theater;
         this.movie = movie;
@@ -40,20 +40,20 @@ public class Seat {
         this.seatID = seatID;
     }
 
-    public int getRow() {
-        return row;
+    public int getSeatRow() {
+        return seatRow;
     }
 
-    public void setRow(int row) {
-        this.row = row;
+    public void setSeatRow(int seatRow) {
+        this.seatRow = seatRow;
     }
 
-    public int getColumn() {
-        return column;
+    public int getSeatColumn() {
+        return seatColumn;
     }
 
-    public void setColumn(int column) {
-        this.column = column;
+    public void setSeatColumn(int seatColumn) {
+        this.seatColumn = seatColumn;
     }
 
     public Boolean getReserved() {
