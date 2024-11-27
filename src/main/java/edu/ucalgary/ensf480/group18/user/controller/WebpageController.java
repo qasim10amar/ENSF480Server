@@ -36,6 +36,11 @@ public class WebpageController {
 
     @GetMapping("/sign-up")
     public String signUp(@CookieValue(name = "USER_TOKEN", defaultValue = "none") String userToken) {
+        // Check if signed in with the cookie
+//                if (true) { // Simulate valid token check
+//            return "redirect:/"; // Redirect to home page if logged in
+//        }
+
         return "sign-up";
     }
 
