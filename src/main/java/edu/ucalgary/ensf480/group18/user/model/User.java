@@ -9,15 +9,14 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
 
     private String usrEmail;
 
-    @OneToMany
-    @JoinColumn(name = "userId")
-    private List<Card> cards;
+    @OneToOne(mappedBy = "user")
+    private Card card;
 
     @Transient
     protected RefundStrategy refundStrategy;

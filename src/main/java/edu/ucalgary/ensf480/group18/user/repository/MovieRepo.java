@@ -5,10 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MovieRepo extends JpaRepository<Movie, Integer> {
     //Get all movies for a given date
     @Query("SELECT m FROM Movie m JOIN m.showTimes s WHERE s.showTime = ?1")
-    public List<Movie> findAllMoviesByDate(LocalDate currentDate);
+    public List<Movie> findAllMoviesByDate(LocalDateTime currentDate);
 }

@@ -76,4 +76,5 @@ public class RegisteredUser extends User {
     public void setAddress(Address address) {
         this.address = address;
     }
+
 }

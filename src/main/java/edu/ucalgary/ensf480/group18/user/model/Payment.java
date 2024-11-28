@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int paymentId;
     @OneToOne
     @JoinColumn(name = "ticketId")

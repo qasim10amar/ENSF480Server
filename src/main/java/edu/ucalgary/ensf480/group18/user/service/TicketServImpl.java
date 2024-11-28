@@ -5,6 +5,8 @@ import edu.ucalgary.ensf480.group18.user.repository.TicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TicketServImpl implements TicketServ {
 
@@ -19,5 +21,10 @@ public class TicketServImpl implements TicketServ {
         @Override
         public Ticket getTicket(Long ticketId) {
             return ticketRepo.findById(ticketId).orElse(null);
+        }
+
+        @Override
+        public List<Ticket> getTicketByEmailAddress(String emailAddress) {
+            return ticketRepo.findTicketsByEmail(emailAddress);
         }
 }
