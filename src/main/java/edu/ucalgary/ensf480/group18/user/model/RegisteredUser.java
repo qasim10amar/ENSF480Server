@@ -21,7 +21,7 @@ public class RegisteredUser extends User {
     }
 
     public RegisteredUser(String usrEmail, String firstName, String lastName, String email, String password, Address address) {
-        super(usrEmail);
+        super(usrEmail, new RURefundStrategy());
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

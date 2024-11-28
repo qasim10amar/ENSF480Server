@@ -12,27 +12,13 @@ import java.util.List;
 
 @Entity
 public class Movie {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int movieId;
-
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<ShowTime> showTimes;
-
-    @ManyToOne
-    @JoinColumn(name = "theaterId")
-    private Theater theater;
-
-
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<Seat> seats;
-
     private String title;
     private String genre;
     private LocalDate releaseDate;
-
-
 }

@@ -1,19 +1,29 @@
 package edu.ucalgary.ensf480.group18.user.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class ShowTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long showTimeId;
 
     @ManyToOne
     @JoinColumn(name = "movieId", nullable = false)
     private Movie movie;
+
+    @ManyToOne
+    @JoinColumn(name = "theaterId")
+    private Theater theater;
+
+    @OneToMany(mappedBy = "showTime", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Seat> seats;
 
     @Column(nullable = false)
     private LocalDateTime showTime;
@@ -21,17 +31,18 @@ public class ShowTime {
     public ShowTime() {
     }
 
-    public ShowTime(Movie movie, LocalDateTime showTime) {
+    public ShowTime(Movie movie, Theater theater, LocalDateTime showTime) {
         this.movie = movie;
+        this.theater = theater;
         this.showTime = showTime;
     }
 
-    public Long getId() {
-        return id;
+    public Long getShowTimeId() {
+        return showTimeId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setShowTimeId(Long showTimeId) {
+        this.showTimeId = showTimeId;
     }
 
     public Movie getMovie() {

@@ -9,13 +9,10 @@ public class Theater {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long theaterId;
-
     private String theaterNumber;
     private int capacity;
     private String theaterType;
 
-    @OneToMany(mappedBy = "theater", cascade = CascadeType.ALL)
-    private List<Movie> movies;
 
 
 

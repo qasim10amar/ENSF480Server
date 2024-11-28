@@ -5,13 +5,11 @@ import jakarta.persistence.*;
 @Entity
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private int paymentId;
-
     @OneToOne
     @JoinColumn(name = "ticketId")
     private Ticket ticket;
-
     private Boolean isPaid;
     private String cardNumber;
 

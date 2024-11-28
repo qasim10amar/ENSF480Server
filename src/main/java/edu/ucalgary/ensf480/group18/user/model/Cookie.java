@@ -10,6 +10,6 @@ package edu.ucalgary.ensf480.group18.user.model;
 // getAddDate(token)
 // getUserEmail(token)
 // I'll implement other functions to interact with the frontend
-
+// Cookies aren't stored in the database
 public class Cookie {
 }

@@ -9,10 +9,14 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private Long userId;
+
+
     private String usrEmail;
 
     @OneToMany
-    @JoinColumn(name = "usrEmail")
+    @JoinColumn(name = "userId")
     private List<Card> cards;
 
     @Transient
@@ -26,6 +30,16 @@ public class User {
         this.refundStrategy = new RegularRefundStrategy();
     }
 
+    public User(String usrEmail, RefundStrategy refundStrategy) {
+        this.usrEmail = usrEmail;
+        this.refundStrategy = refundStrategy;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+
     public String getUsrEmail() {
         return usrEmail;
     }
@@ -38,14 +52,18 @@ public class User {
         return refundStrategy;
     }
 
-    @OneToMany(mappedBy = "user")
-    private Collection<Ticket> ticket;
-
-    public Collection<Ticket> getTicket() {
-        return ticket;
+    public void setRefundStrategy(RefundStrategy refundStrategy) {
+        this.refundStrategy = refundStrategy;
     }
-
-    public void setTicket(Collection<Ticket> ticket) {
-        this.ticket = ticket;
-    }
+//
+//    @OneToMany(mappedBy = "user")
+//    private Collection<Ticket> ticket;
+//
+//    public Collection<Ticket> getTicket() {
+//        return ticket;
+//    }
+//
+//    public void setTicket(Collection<Ticket> ticket) {
+//        this.ticket = ticket;
+//    }
 }
