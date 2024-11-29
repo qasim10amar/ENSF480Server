@@ -13,7 +13,7 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int movieId;
 
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<ShowTime> showTimes = new ArrayList<>(); // Best practice: Initialize the list
 

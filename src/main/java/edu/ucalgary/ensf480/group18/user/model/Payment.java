@@ -10,16 +10,20 @@ public class Payment {
     @OneToOne
     @JoinColumn(name = "ticketId")
     private Ticket ticket;
+
+    @ManyToOne
+    @JoinColumn(name = "cardNum")
+    private Card card;
+
     private Boolean isPaid;
-    private String cardNumber;
 
     public Payment() {
     }
 
-    public Payment(Ticket ticket, Boolean isPaid, String cardNumber) {
+    public Payment(Ticket ticket, Card card) {
         this.ticket = ticket;
-        this.isPaid = isPaid;
-        this.cardNumber = cardNumber;
+        this.card = card;
+        this.isPaid = true;
     }
 
     public int getPaymentId() {
@@ -46,11 +50,11 @@ public class Payment {
         isPaid = paid;
     }
 
-    public String getCardNumber() {
-        return cardNumber;
+    public Card getCard() {
+        return card;
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setCard(Card card) {
+        this.card = card;
     }
 }

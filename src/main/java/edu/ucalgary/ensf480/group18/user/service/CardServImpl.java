@@ -21,8 +21,7 @@ public class CardServImpl implements CardServ{
     }
 
     @Override
-    public Card updateCard(String cardNum, Card card) {
-        card.setCardNum(cardNum);
+    public Card updateCard(Card card) {
         return cardRepo.save(card);
     }
 

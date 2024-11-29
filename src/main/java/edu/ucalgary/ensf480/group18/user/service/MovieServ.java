@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface MovieServ {
     List<Movie> getAllMovies(LocalDate currentDate);
+    List<Movie> searchMovies(String title);
     Movie getMovie(int movieId);
     Movie createMovie(Movie movie);
 

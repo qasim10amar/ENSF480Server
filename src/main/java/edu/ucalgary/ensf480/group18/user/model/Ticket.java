@@ -19,15 +19,25 @@ public class Ticket {
     @JoinColumn(name = "seatId")
     private Seat seat;
 
+    private int ticketPrice;
+
     private Boolean isPurchased;
 
     public Ticket(){
 
     }
 
+    public Ticket(User user, Seat seat) {
+        this.user = user;
+        this.seat = seat;
+        this.ticketPrice = seat.getSeatPrice();
+        this.isPurchased = false;
+    }
+
     public Ticket(User user, Seat seat, Boolean isPurchased) {
         this.user = user;
         this.seat = seat;
+        this.ticketPrice = seat.getSeatPrice();
         this.isPurchased = isPurchased;
     }
 
@@ -61,5 +71,13 @@ public class Ticket {
 
     public void setPurchased(Boolean purchased) {
         isPurchased = purchased;
+    }
+
+    public int getTicketPrice() {
+        return ticketPrice;
+    }
+
+    public void setTicketPrice(int ticketPrice) {
+        this.ticketPrice = ticketPrice;
     }
 }

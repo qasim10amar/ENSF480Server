@@ -11,6 +11,7 @@ public class Seat {
     private Long seatID;
     private int seatRow;
     private int seatColumn;
+    private int seatPrice;
     @Column(name = "isReserved")
     private Boolean isReserved;
 
@@ -22,12 +23,11 @@ public class Seat {
     public Seat() {
     }
 
-    public Seat(Long seatID, int seatRow, int seatColumn, Boolean isReserved, ShowTime showTime) {
-        this.seatID = seatID;
+    public Seat(int seatRow, int seatColumn, int seatPrice, Boolean isReserved) {
         this.seatRow = seatRow;
         this.seatColumn = seatColumn;
+        this.seatPrice = seatPrice;
         this.isReserved = isReserved;
-        this.showTime = showTime;
     }
 
     public Long getSeatID() {
@@ -54,11 +54,27 @@ public class Seat {
         this.seatColumn = seatColumn;
     }
 
-    public Boolean getReserved() {
+    public Boolean getIsReserved() {
         return isReserved;
     }
 
-    public void setReserved(Boolean reserved) {
+    public void setIsReserved(Boolean reserved) {
         isReserved = reserved;
+    }
+
+    public int getSeatPrice() {
+        return seatPrice;
+    }
+
+    public void setSeatPrice(int seatPrice) {
+        this.seatPrice = seatPrice;
+    }
+
+    public ShowTime getShowTime() {
+        return showTime;
+    }
+
+    public void setShowTime(ShowTime showTime) {
+        this.showTime = showTime;
     }
 }

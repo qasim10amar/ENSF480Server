@@ -33,4 +33,9 @@ public class MovieServImpl implements MovieServ{
     public Movie updateMovie(Movie movie) {
         return movieRepo.save(movie);
     }
+
+    @Override
+    public List<Movie> searchMovies(String title) {
+        return movieRepo.findAllByTitle(title);
+    }
 }

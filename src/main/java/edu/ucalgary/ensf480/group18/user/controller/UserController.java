@@ -1,5 +1,6 @@
 package edu.ucalgary.ensf480.group18.user.controller;
 
+import edu.ucalgary.ensf480.group18.user.model.Card;
 import edu.ucalgary.ensf480.group18.user.model.RegisteredUser;
 import edu.ucalgary.ensf480.group18.user.model.Ticket;
 import edu.ucalgary.ensf480.group18.user.model.User;
@@ -7,6 +8,8 @@ import edu.ucalgary.ensf480.group18.user.service.*;
 import jdk.jfr.Registered;
 import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,28 +38,38 @@ public class UserController {
         return userService.getUserByEmailAddress(UsrEmail);
     }
 
-    @GetMapping("/registeredUsers/{UsrEmail}")
-    public User findRegisteredUser(@PathVariable String UsrEmail){
-        return registeredUserService.getUserByEmailAddress(UsrEmail);
-    }
-
-    @GetMapping("/registeredUsers/getTickets/{UsrEmail}")
+    @GetMapping("/getTickets/{UsrEmail}")
     public List<Ticket> findRegisteredUserTickets(@PathVariable String UsrEmail){
         return ticketService.getTicketByEmailAddress(UsrEmail);
     }
 
-    @GetMapping("/add")
-    public User addUser(@RequestBody User user){
-        return userService.createUser(user);
+    @PostMapping("/add")
+    public ResponseEntity<?> addUser(@RequestBody User user) {
+        if(user == null) return ResponseEntity.badRequest().body("User object is required."); // Return 400 with error message
+        // if user email is already exist throw error
+        if(userService.getUserByEmailAddress(user.getUsrEmail()) != null) {
+            return ResponseEntity.badRequest().body(user.getUsrEmail()); // Return 400 with error message
+        }
+        try {
+            User createdUser = userService.createUser(user);
+            return ResponseEntity.ok(createdUser); // Return 200 with created user
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage()); // Return 400 with error message
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("An unexpected error occurred."); // Return 500 with generic error message
+        }
     }
-
-//    @GetMapping("/registeredUsers/add")
-//    public RegisteredUser addRegisteredUser(@RequestBody RegisteredUser registeredUser){
-//        addressService.createAddress(registeredUser.getAddress());
-//        cardService.createCard(registeredUser.getCard());
-//        addUser(registeredUser);
-//        return registeredUserService.createUser(registeredUser);
-//    }
+    @PostMapping("/registeredUsers/add")
+    public RegisteredUser addRegisteredUser(@RequestBody RegisteredUser registeredUser){
+        addressService.createAddress(registeredUser.getAddress());
+        Card card = cardService.createCard(registeredUser.getCard());
+        addUser(registeredUser);
+        RegisteredUser newUser = registeredUserService.createUser(registeredUser);
+        card.setUser(registeredUser);
+        cardService.updateCard(card);
+        return newUser;
+    }
 
 
 }

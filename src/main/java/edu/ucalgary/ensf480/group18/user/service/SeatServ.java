@@ -9,7 +9,8 @@ public interface SeatServ {
     Seat createSeat(Seat seat);
     Seat getSeat(Long seatId);
     List<Seat> getAllSeats(ShowTime showTime);
-//    Seat updateSeat(Long seatId, Seat seat);
+
+    void updateSeat(Seat seat);
 
     List<Seat> generateSeats(ShowTime showTime);
 

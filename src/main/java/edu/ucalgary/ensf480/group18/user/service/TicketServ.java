@@ -8,4 +8,8 @@ public interface TicketServ {
     Ticket createTicket(Ticket ticket);
     Ticket getTicket(Long ticketId);
     List<Ticket> getTicketByEmailAddress(String emailAddress);
+    Ticket emailTicket(Ticket ticket);
+
+    Ticket updateTicket(Ticket ticket);
+    void deleteTicket(Ticket ticket);
 }

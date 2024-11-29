@@ -1,6 +1,7 @@
 package edu.ucalgary.ensf480.group18.user.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ public class Card {
 
     @OneToOne
     @JoinColumn(name = "userId")
+    @JsonIgnore
     private User user;
 
     public Card(){}
@@ -37,6 +39,13 @@ public class Card {
     }
     public void setCvc(int cvc) {
         this.cvc = cvc;
+    }
+
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

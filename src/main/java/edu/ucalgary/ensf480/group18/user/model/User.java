@@ -1,5 +1,6 @@
 package edu.ucalgary.ensf480.group18.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Collection;
@@ -12,13 +13,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-
+    @Column(unique = true, nullable = false)
     private String usrEmail;
 
-    @OneToOne(mappedBy = "user")
-    private Card card;
+
 
     @Transient
+    @JsonIgnore
     protected RefundStrategy refundStrategy;
 
     public User() {
@@ -54,15 +55,6 @@ public class User {
     public void setRefundStrategy(RefundStrategy refundStrategy) {
         this.refundStrategy = refundStrategy;
     }
-//
-//    @OneToMany(mappedBy = "user")
-//    private Collection<Ticket> ticket;
-//
-//    public Collection<Ticket> getTicket() {
-//        return ticket;
-//    }
-//
-//    public void setTicket(Collection<Ticket> ticket) {
-//        this.ticket = ticket;
-//    }
+
+
 }

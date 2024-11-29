@@ -3,6 +3,7 @@ package edu.ucalgary.ensf480.group18.user.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 import java.time.LocalDate;
 
@@ -11,20 +12,21 @@ public class RegisteredUser extends User {
     private static double annualFee = 20.00;
     private String firstName;
     private String lastName;
-    private String email;
     private String password;
     @ManyToOne
     @JoinColumn(name = "StreetAddress")
     private Address address;
 
+    @OneToOne(mappedBy = "user")
+    private Card card;
+
     public RegisteredUser() {
     }
 
-    public RegisteredUser(String usrEmail, String firstName, String lastName, String email, String password, Address address) {
+    public RegisteredUser(String usrEmail, String firstName, String lastName, String password, Address address) {
         super(usrEmail, new RURefundStrategy());
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
         this.password = password;
         this.address = address;
     }
@@ -53,13 +55,6 @@ public class RegisteredUser extends User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getPassword() {
         return password;
@@ -76,5 +71,15 @@ public class RegisteredUser extends User {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    public Card getCard() {
+        return card;
+    }
+
+    public void setCard(Card card) {
+        this.card = card;
+    }
+
+
 
 }

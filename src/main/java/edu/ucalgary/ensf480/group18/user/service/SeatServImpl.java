@@ -36,12 +36,19 @@ public class SeatServImpl implements SeatServ{
 
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= columns; j++) {
-                Seat seat = new Seat(null, i, j, false, showTime);
+                Seat seat = new Seat(i, j, 10, false);
+                seat.setShowTime(showTime);
                 seats.add(seat);
+
             }
         }
 
         return seats;
+    }
+
+    @Override
+    public void updateSeat(Seat seat) {
+        seatRepo.save(seat);
     }
 
 //    @Override

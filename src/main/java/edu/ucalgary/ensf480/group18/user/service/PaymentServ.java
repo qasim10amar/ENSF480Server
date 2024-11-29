@@ -6,5 +6,7 @@ public interface PaymentServ {
     Payment createPayment(Payment payment);
     Payment getPaymentById(Long paymentId);
     void deletePayment(Payment payment);
-    Payment updatePayment(Long paymentId, Payment payment);
+    Payment updatePayment(Payment payment);
+
+    Payment refundPayment(Payment payment);
 }

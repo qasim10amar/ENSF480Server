@@ -1,9 +1,7 @@
 package edu.ucalgary.ensf480.group18.user.controller;
 
+import edu.ucalgary.ensf480.group18.user.model.*;
 import edu.ucalgary.ensf480.group18.user.model.Movie;
-import edu.ucalgary.ensf480.group18.user.model.Seat;
-import edu.ucalgary.ensf480.group18.user.model.ShowTime;
-import edu.ucalgary.ensf480.group18.user.model.Ticket;
 import edu.ucalgary.ensf480.group18.user.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +29,9 @@ public class MovieController {
     @Autowired
     private TicketServ ticketService;
 
+    @Autowired
+    private TheaterServ theaterService;
+
     @GetMapping("/getAll/{date}")
     public List<Movie> getAllMovies(@PathVariable String date){
         LocalDate date1 = LocalDate.parse(date);
@@ -43,44 +44,58 @@ public class MovieController {
         return showTimeService.getShowTime(showTimeId);
     }
 
-//    @PostMapping("/{showTimeId}/createTicket")
-//    public void createTicket(@PathVariable Long showTimeId, @RequestBody Long seatId){
-//        ShowTime showTime = showTimeService.getShowTime(showTimeId);
-//        Seat seat = seatService.getSeat(seatId);
-//        //Check if the seat is available
-//        if(seat.isAvailable()){
-//            //Create a ticket
-//            ticketService.createTicket(new Ticket(showTime, seat));
-//            //Set the seat to unavailable
-//            seat.setAvailable(false);
-//            seatService.updateSeat(seat);
+    @GetMapping("/search")
+    public List<Movie> searchMovies(@RequestParam String title){
+        return movieService.searchMovies(title.toLowerCase());
+    }
+
+    @PostMapping("/{showTimeId}/createTicket")
+    public Ticket createTicket(@RequestParam Long seatId, @RequestParam String userEmail){
+        Seat seat = seatService.getSeat(seatId);
+        User user = userService.getUserByEmailAddress(userEmail);
+//        if(user == null){
+//            user = userService.createUser(new User(userEmail));
 //        }
-//    }
+        if(user == null || seat == null){
+            return null;
+        }
+        //Check if the seat is available
+        if(!seat.getIsReserved()){
+            Ticket ticket = new Ticket(user, seat);
+            //Create a ticket
+            ticketService.createTicket(ticket);
+            //Set the seat to unavailable
+            seat.setIsReserved(true);
+            seatService.updateSeat(seat);
+            return ticket;
+        }
+        return null;
+    }
 
     @PostMapping("/create")
-    public void createMovie(@RequestParam String title, @RequestParam String genre, @RequestParam String releaseDate) {
+    public Movie createMovie(@RequestParam String title, @RequestParam String genre, @RequestParam String releaseDate) {
         Movie movie = new Movie();
         movie.setTitle(title);
         movie.setGenre(genre);
         movie.setReleaseDate(LocalDate.parse(releaseDate));
 
         Movie savedMovie = movieService.createMovie(movie);
-
+        Theater theater = theaterService.getTheater(1L);
         // Generate and add showtimes in place
-        List<ShowTime> generatedShowTimes = showTimeService.generateShowTimes(savedMovie);
-        for (ShowTime showTime : generatedShowTimes) {
-            savedMovie.getShowTimes().add(showTime); // Update the existing collection
+        List<ShowTime> generatedShowTimes = showTimeService.generateShowTimes(savedMovie, theater);
+        for(ShowTime showTime : generatedShowTimes){
+            showTimeService.createShowTime(showTime);
+            List<Seat> seats = seatService.generateSeats(showTime);
+            for(Seat seat : seats){
+                seatService.createSeat(seat);
+            }
+            showTime.setSeats(seats);
         }
+        savedMovie.setShowTimes(generatedShowTimes);
 
         movieService.updateMovie(savedMovie);
 
-        // Generate seats for each showtime
-        for (ShowTime showTime : savedMovie.getShowTimes()) {
-            List<Seat> seats = seatService.generateSeats(showTime);
-            showTime.setSeats(seats);
-        }
-
-        System.out.println(savedMovie);
+        return savedMovie;
     }
 
 

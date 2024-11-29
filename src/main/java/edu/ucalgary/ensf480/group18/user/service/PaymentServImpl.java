@@ -6,24 +6,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PaymentServImpl {
+public class PaymentServImpl implements PaymentServ {
     @Autowired
     private PaymentRepo paymentRepo;
 
-    public void deletePayment(Long paymentId) {
-        paymentRepo.deleteById(paymentId);
-    }
-
-    public void updatePayment(Long paymentId, Payment payment) {
-        paymentRepo.save(payment);
-    }
-
+    @Override
     public Payment createPayment(Payment payment) {
         return paymentRepo.save(payment);
     }
 
+    @Override
     public Payment getPaymentById(Long paymentId) {
         return paymentRepo.findById(paymentId).orElse(null);
+    }
+
+    @Override
+    public void deletePayment(Payment payment) {
+        paymentRepo.delete(payment);
+    }
+
+    @Override
+    public Payment updatePayment(Payment payment) {
+        return paymentRepo.save(payment);
+    }
+
+    // TODO: Implement refundPayment
+    @Override
+    public Payment refundPayment(Payment payment) {
+        if(payment.getPaid()) {
+            payment.setPaid(false);
+            int refundAmount = payment.getTicket().getTicketPrice();
+        }
+        return null;
     }
 
 
