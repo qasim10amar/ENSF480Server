@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Ticket</title>
+    <link rel="stylesheet" href="/css/movie/buy-ticket.css">
+    <script src="/js/movie/buy-ticket.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${movieName}">Movie Name</h1>
+    <p th:text="${description}">Movie Description</p>
+
+    <div class="dates">
+        <label for="date-time">Available Dates:</label>
+        <select id="date-time">
+            <option th:each="date : ${availableDates}" th:value="${date}" th:text="${date}"></option>
+        </select>
+    </div>
+
+    <button id="load-seats">Load Seats</button>
+
+    <div id="screen-section">
+        <div id="screen">Screen</div>
+        <div id="seatmap"></div>
+        <div id="doors">
+            <div class="door">Door</div>
+            <div class="door">Door</div>
+        </div>
+    </div>
+
+    <div id="order-summary">
+        <h2>Order Summary</h2>
+        <p id="summary-movie"></p>
+        <ul id="summary-seats"></ul>
+        <p id="total"></p>
+    </div>
+</div>
+</body>
+</html>

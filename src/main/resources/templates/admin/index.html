@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/admin/index.css">
+    <script src="/js/admin/index.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>Admin Dashboard</h1>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+        <button id="add-movie">Add Movie</button>
+        <button id="batch-remove-movie">Batch Remove Movies</button>
+    </div>
+
+    <!-- Movies Table -->
+    <table id="movies-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Add Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="movies-body">
+        <!-- Dynamic content will be injected here -->
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

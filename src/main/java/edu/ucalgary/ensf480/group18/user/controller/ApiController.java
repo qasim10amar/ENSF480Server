@@ -1,9 +1,7 @@
 package edu.ucalgary.ensf480.group18.user.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import java.util.*;
+import org.springframework.web.bind.annotation.*;
 
 // temp class
 class Movie {
@@ -37,8 +35,9 @@ class Movie {
 }
 
 @RestController
+@RequestMapping("/api")
 public class ApiController {
-    @GetMapping("/api/movies")
+    @GetMapping("/movies")
     public List<Movie> getMovies() {
         return List.of(
                 new Movie("Movie 1", "cover1.jpg", "Actor 1, Actor 2", "120 min"),
@@ -59,5 +58,38 @@ public class ApiController {
                 new Movie("Movie 16", "cover16.jpg", "Actor 31, Actor 32", "240 min"),
                 new Movie("Movie 17", "cover17.jpg", "Actor 33, Actor 34", "250 min")
         );
+    }
+    @PostMapping("/sign-up")
+    public Map<String, Object> signUp(@RequestBody RequestBodyConstructor.UserAccount userAccount) {
+        // check if email exists
+        // if exists, return {"status": 1, "message": "Email already exists"}
+        // if not, return {"status": 0, "message": "User created"}
+        Map<String, Object> response = new HashMap<>();
+        response.put("name", "Alice");
+        response.put("age", 25);
+        response.put("isStudent", true);
+        response.put("grades", new int[]{90, 85, 92}); // Nested data
+        return response;
+    }
+
+    @PostMapping("/sign-in")
+    public Map<String, Object> handleSignIn(@RequestBody Map<String, String> credentials) {
+        String email = credentials.get("email");
+        String password = credentials.get("password");
+
+        // Replace with actual database verification logic
+        if ("user@example.com".equals(email) && "securePassword".equals(password)) {
+            // Success response
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", 0);
+            response.put("message", "Login successful");
+            return response;
+        }
+
+        // Failure response
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", 1);
+        response.put("message", "Invalid email or password");
+        return response;
     }
 }
