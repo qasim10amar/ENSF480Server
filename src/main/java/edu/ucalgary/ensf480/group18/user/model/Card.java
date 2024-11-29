@@ -14,7 +14,9 @@ public class Card {
     private LocalDate expiry;
     private int cvc;
 
-    private String uerEmail;
+    @OneToOne
+    @JoinColumn(name = "userId")
+    private User user;
 
     public Card(){}
 

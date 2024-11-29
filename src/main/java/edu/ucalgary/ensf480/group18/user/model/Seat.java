@@ -14,22 +14,18 @@ public class Seat {
     private Boolean isReserved;
 
     @ManyToOne
-    @JoinColumn(name = "theaterId")
-    private Theater theater;
-
-    @ManyToOne
-    @JoinColumn(name = "movieId")
-    private Movie movie;
+    @JoinColumn(name = "showTimeId")
+    private ShowTime showTime;
 
     public Seat() {
     }
 
-    public Seat(int row, int column, Boolean isReserved, Theater theater, Movie movie) {
-        this.seatRow = row;
-        this.seatColumn = column;
+    public Seat(Long seatID, int seatRow, int seatColumn, Boolean isReserved, ShowTime showTime) {
+        this.seatID = seatID;
+        this.seatRow = seatRow;
+        this.seatColumn = seatColumn;
         this.isReserved = isReserved;
-        this.theater = theater;
-        this.movie = movie;
+        this.showTime = showTime;
     }
 
     public Long getSeatID() {
@@ -62,21 +58,5 @@ public class Seat {
 
     public void setReserved(Boolean reserved) {
         isReserved = reserved;
-    }
-
-    public Theater getTheater() {
-        return theater;
-    }
-
-    public void setTheater(Theater theater) {
-        this.theater = theater;
-    }
-
-    public Movie getMovie() {
-        return movie;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
     }
 }

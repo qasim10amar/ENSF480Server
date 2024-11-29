@@ -12,7 +12,7 @@ public class Ticket {
     private Long ticketId;
 
     @ManyToOne
-    @JoinColumn(name = "usrEmail")
+    @JoinColumn(name = "userId")
     private User user;
 
     @ManyToOne

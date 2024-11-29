@@ -7,11 +7,9 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int paymentId;
-
     @OneToOne
     @JoinColumn(name = "ticketId")
     private Ticket ticket;
-
     private Boolean isPaid;
     private String cardNumber;
 
