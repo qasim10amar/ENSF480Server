@@ -7,6 +7,20 @@ import jakarta.persistence.OneToOne;
 
 import java.time.LocalDate;
 
+/*
+Intended modifications:
+- add VIP status, in case user no longer pays anual fee.
+- add admin status, to determine if user is an admin
+- add credit, to store the credit they got as refund.
+
+- remove userId, since email is unique
+- remove returnStrategy, use VIP status to determine refund strategy
+- remove annualFee, since it is a constant value
+- remove address, it's not used
+
+- merge firstName and lastName into one name
+
+ */
 @Entity
 public class RegisteredUser extends User {
     private static double annualFee = 20.00;
