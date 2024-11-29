@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class WebpageController {
+public class AdminController {
     @GetMapping("/")
     public String adminDashboard(@CookieValue(name = "USER_TOKEN", defaultValue = "none") String userToken, Model model) {
 
