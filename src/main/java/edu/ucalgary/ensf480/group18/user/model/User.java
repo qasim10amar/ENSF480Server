@@ -52,6 +52,7 @@ public class User {
         return refundStrategy;
     }
 
+
     public void setRefundStrategy(RefundStrategy refundStrategy) {
         this.refundStrategy = refundStrategy;
     }
