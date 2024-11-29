@@ -6,6 +6,7 @@ import edu.ucalgary.ensf480.group18.user.repository.SeatRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 public class SeatServImpl implements SeatServ{
@@ -25,6 +26,22 @@ public class SeatServImpl implements SeatServ{
     @Override
     public List<Seat> getAllSeats(ShowTime showTime) {
         return seatRepo.findByShowTime(showTime);
+    }
+
+    @Override
+    public List<Seat> generateSeats(ShowTime showTime) {
+        List<Seat> seats = new ArrayList<>();
+        int rows = 10;
+        int columns = 10;
+
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= columns; j++) {
+                Seat seat = new Seat(null, i, j, false, showTime);
+                seats.add(seat);
+            }
+        }
+
+        return seats;
     }
 
 //    @Override

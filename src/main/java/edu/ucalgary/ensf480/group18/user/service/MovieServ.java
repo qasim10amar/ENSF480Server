@@ -7,8 +7,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MovieServ {
-    List<Movie> getAllMovies(LocalDateTime currentDate);
+    List<Movie> getAllMovies(LocalDate currentDate);
     Movie getMovie(int movieId);
     Movie createMovie(Movie movie);
+
+    Movie updateMovie(Movie movie);
 
 }

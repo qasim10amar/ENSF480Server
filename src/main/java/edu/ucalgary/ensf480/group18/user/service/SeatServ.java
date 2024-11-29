@@ -11,4 +11,6 @@ public interface SeatServ {
     List<Seat> getAllSeats(ShowTime showTime);
 //    Seat updateSeat(Long seatId, Seat seat);
 
+    List<Seat> generateSeats(ShowTime showTime);
+
 }

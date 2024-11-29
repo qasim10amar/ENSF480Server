@@ -25,7 +25,12 @@ public class MovieServImpl implements MovieServ{
     }
 
     @Override
-    public List<Movie> getAllMovies(LocalDateTime currentDate) {
+    public List<Movie> getAllMovies(LocalDate currentDate) {
         return movieRepo.findAllMoviesByDate(currentDate);
+    }
+
+    @Override
+    public Movie updateMovie(Movie movie) {
+        return movieRepo.save(movie);
     }
 }

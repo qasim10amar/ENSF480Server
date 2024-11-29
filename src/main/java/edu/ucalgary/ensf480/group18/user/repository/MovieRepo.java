@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface MovieRepo extends JpaRepository<Movie, Integer> {
     //Get all movies for a given date
-    @Query("SELECT m FROM Movie m JOIN m.showTimes s WHERE s.showTime = ?1")
-    public List<Movie> findAllMoviesByDate(LocalDateTime currentDate);
+    @Query("SELECT m FROM Movie m JOIN m.showTimes s WHERE FUNCTION('DATE', s.showTime) = ?1")
+    List<Movie> findAllMoviesByDate(LocalDate currentDate);
 }

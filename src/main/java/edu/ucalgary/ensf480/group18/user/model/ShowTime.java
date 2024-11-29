@@ -1,5 +1,6 @@
 package edu.ucalgary.ensf480.group18.user.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -15,6 +16,7 @@ public class ShowTime {
 
     @ManyToOne
     @JoinColumn(name = "movieId", nullable = false)
+    @JsonBackReference
     private Movie movie;
 
     @ManyToOne
@@ -45,10 +47,6 @@ public class ShowTime {
         this.showTimeId = showTimeId;
     }
 
-    public Movie getMovie() {
-        return movie;
-    }
-
     public void setMovie(Movie movie) {
         this.movie = movie;
     }
@@ -60,4 +58,9 @@ public class ShowTime {
     public void setShowTime(LocalDateTime showTime) {
         this.showTime = showTime;
     }
+
+    public void setSeats(List<Seat> seats) {
+        this.seats = seats;
+    }
 }
+

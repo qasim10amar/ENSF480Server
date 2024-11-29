@@ -1,5 +1,6 @@
 package edu.ucalgary.ensf480.group18.user.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 
@@ -15,6 +16,7 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "showTimeId")
+    @JsonBackReference
     private ShowTime showTime;
 
     public Seat() {

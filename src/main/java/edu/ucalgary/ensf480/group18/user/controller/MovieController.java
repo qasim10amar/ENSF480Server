@@ -33,7 +33,7 @@ public class MovieController {
 
     @GetMapping("/getAll/{date}")
     public List<Movie> getAllMovies(@PathVariable String date){
-        LocalDateTime date1 = LocalDate.parse(date).atStartOfDay();
+        LocalDate date1 = LocalDate.parse(date);
         return movieService.getAllMovies(date1);
     }
 
@@ -56,6 +56,33 @@ public class MovieController {
 //            seatService.updateSeat(seat);
 //        }
 //    }
+
+    @PostMapping("/create")
+    public void createMovie(@RequestParam String title, @RequestParam String genre, @RequestParam String releaseDate) {
+        Movie movie = new Movie();
+        movie.setTitle(title);
+        movie.setGenre(genre);
+        movie.setReleaseDate(LocalDate.parse(releaseDate));
+
+        Movie savedMovie = movieService.createMovie(movie);
+
+        // Generate and add showtimes in place
+        List<ShowTime> generatedShowTimes = showTimeService.generateShowTimes(savedMovie);
+        for (ShowTime showTime : generatedShowTimes) {
+            savedMovie.getShowTimes().add(showTime); // Update the existing collection
+        }
+
+        movieService.updateMovie(savedMovie);
+
+        // Generate seats for each showtime
+        for (ShowTime showTime : savedMovie.getShowTimes()) {
+            List<Seat> seats = seatService.generateSeats(showTime);
+            showTime.setSeats(seats);
+        }
+
+        System.out.println(savedMovie);
+    }
+
 
 
 }
