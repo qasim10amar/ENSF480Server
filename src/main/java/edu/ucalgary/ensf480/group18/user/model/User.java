@@ -6,6 +6,11 @@ import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
+/*
+Intended modifications:
+- remove userId, since email is unique
+
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
@@ -15,8 +20,6 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String usrEmail;
-
-
 
     @Transient
     @JsonIgnore
