@@ -1,15 +1,54 @@
 package edu.ucalgary.ensf480.group18.user.model;
 
-// Databse need to have the following columns:
-// userToken as the unique key in the database
-// addDate for the token to expire
-// userEmail as the foreign key
+import jakarta.persistence.*;
+import java.time.LocalDate;
 
-// Implement the following functions:
-// addRow(username, currentDate), generate the cookie, 16 digit random number and letter
-// getAddDate(token)
-// getUserEmail(token)
-// I'll implement other functions to interact with the frontend
-// Cookies aren't stored in the database
+@Entity
 public class Cookie {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(unique = true, nullable = false)
+    private String userToken;
+
+    private LocalDate addDate;
+
+    @ManyToOne
+    @JoinColumn(name = "userEmail", nullable = false)
+    private User user;
+
+    // Getters and Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUserToken() {
+        return userToken;
+    }
+
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
+    }
+
+    public LocalDate getAddDate() {
+        return addDate;
+    }
+
+    public void setAddDate(LocalDate addDate) {
+        this.addDate = addDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
