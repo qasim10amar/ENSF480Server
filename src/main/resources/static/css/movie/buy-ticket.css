@@ -1,0 +1,117 @@
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+/* Movie details */
+h1 {
+    color: #333;
+}
+
+p {
+    color: #666;
+}
+
+/* Dates dropdown */
+.dates {
+    margin: 20px 0;
+}
+
+#date-time {
+    padding: 10px;
+    font-size: 1em;
+}
+
+/* Seat map section */
+#screen-section {
+    margin-top: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#screen {
+    background-color: #333;
+    color: white;
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+#seatmap {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.seat {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.seat.empty {
+    background-color: lightgray;
+}
+
+.seat.reserved {
+    background-color: red;
+    cursor: not-allowed;
+}
+
+.seat.selected {
+    background-color: green;
+}
+
+#doors {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    margin-top: 20px;
+}
+
+.door {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    width: 50px;
+    text-align: center;
+}
+
+/* Order summary */
+#order-summary {
+    margin-top: 30px;
+    text-align: left;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#summary-seats {
+    list-style-type: none;
+    padding: 0;
+}
+
+#summary-seats li {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}

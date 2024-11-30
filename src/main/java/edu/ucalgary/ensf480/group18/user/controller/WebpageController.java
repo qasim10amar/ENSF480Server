@@ -2,8 +2,7 @@ package edu.ucalgary.ensf480.group18.user.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -47,6 +46,15 @@ public class WebpageController {
     @GetMapping("/sign-in")
     public String signIn(@CookieValue(name = "USER_TOKEN", defaultValue = "none") String userToken) {
         return "sign-in";
+    }
+
+    @GetMapping("/payment/bank")
+    public String bankPayment(@CookieValue(name = "USER_TOKEN", defaultValue = "none") String userToken) {
+        return "payment/bank";
+    }
+    @GetMapping("/movie/buy-ticket")
+    public String buyTicket(@CookieValue(name = "USER_TOKEN", defaultValue = "none") String userToken) {
+        return "movie/buy-ticket";
     }
 }
 

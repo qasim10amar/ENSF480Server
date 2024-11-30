@@ -16,9 +16,9 @@ public class Card {
     private int cvc;
 
     @OneToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "usrEmail")
     @JsonIgnore
-    private User user;
+    private RegisteredUser user;
 
     public Card(){}
 
@@ -41,10 +41,10 @@ public class Card {
         this.cvc = cvc;
     }
 
-    public User getUser() {
+    public RegisteredUser getUser() {
         return user;
     }
-    public void setUser(User user) {
+    public void setUser(RegisteredUser user) {
         this.user = user;
     }
 

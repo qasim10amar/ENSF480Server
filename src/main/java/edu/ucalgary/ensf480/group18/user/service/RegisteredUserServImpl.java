@@ -21,9 +21,9 @@ public class RegisteredUserServImpl implements RegisteredUserServ {
         return registeredUserRepo.findByEmailAddress(emailAddress);
     }
 
-    @Override
-    public void deleteUser(RegisteredUser registeredUser) {
-        registeredUserRepo.delete(registeredUser);
-    }
+//    @Override
+//    public void deleteUser(RegisteredUser registeredUser) {
+//        registeredUserRepo.delete(registeredUser);
+//    }
 
 }
