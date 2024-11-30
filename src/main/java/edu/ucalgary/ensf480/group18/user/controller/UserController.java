@@ -44,14 +44,13 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addUser(@RequestBody User user) {
-        if(user == null) return ResponseEntity.badRequest().body("User object is required."); // Return 400 with error message
+    public ResponseEntity<?> addUser(@RequestParam String userEmail){
         // if user email is already exist throw error
-        if(userService.getUserByEmailAddress(user.getUsrEmail()) != null) {
-            return ResponseEntity.badRequest().body(user.getUsrEmail()); // Return 400 with error message
+        if(userService.getUserByEmailAddress(userEmail) != null) {
+            return ResponseEntity.badRequest().body("User with this email already exists."); // Return 400 with error message
         }
         try {
-            User createdUser = userService.createUser(user);
+            User createdUser = userService.createUser(userEmail);
             return ResponseEntity.ok(createdUser); // Return 200 with created user
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage()); // Return 400 with error message
@@ -64,7 +63,6 @@ public class UserController {
     public RegisteredUser addRegisteredUser(@RequestBody RegisteredUser registeredUser){
         addressService.createAddress(registeredUser.getAddress());
         Card card = cardService.createCard(registeredUser.getCard());
-        addUser(registeredUser);
         RegisteredUser newUser = registeredUserService.createUser(registeredUser);
         card.setUser(registeredUser);
         cardService.updateCard(card);

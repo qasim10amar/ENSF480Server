@@ -4,6 +4,6 @@ import edu.ucalgary.ensf480.group18.user.model.User;
 
 public interface UserServ {
     User getUserByEmailAddress(String emailAddress);
-    User createUser(User user);
+    User createUser(String userEmail);
     void deleteUser(User user);
 }

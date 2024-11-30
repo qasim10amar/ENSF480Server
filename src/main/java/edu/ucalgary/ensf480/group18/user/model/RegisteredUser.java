@@ -1,9 +1,6 @@
 package edu.ucalgary.ensf480.group18.user.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -24,12 +21,22 @@ public class RegisteredUser extends User {
     }
 
     public RegisteredUser(String usrEmail, String firstName, String lastName, String password, Address address) {
-        super(usrEmail, new RURefundStrategy());
+        super(usrEmail);
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
         this.address = address;
+        setRefundStrategy(new RURefundStrategy());
     }
+
+    @PostLoad
+    private void initializeRefundStrategy() {
+        if (refundStrategy == null) {
+            refundStrategy = new RURefundStrategy();
+        }
+    }
+
+
 
     public static double getAnnualFee() {
         return annualFee;
@@ -79,6 +86,19 @@ public class RegisteredUser extends User {
     public void setCard(Card card) {
         this.card = card;
     }
+
+    public RefundStrategy getRefundStrategy() {
+        if(refundStrategy == null){
+            setRefundStrategy(new RURefundStrategy());
+        }
+        return refundStrategy;
+    }
+
+    public void setRefundStrategy(RefundStrategy refundStrategy) {
+        this.refundStrategy = refundStrategy;
+    }
+
+
 
 
 

@@ -12,9 +12,10 @@ public class UserServImpl implements UserServ {
     private UserRepo userRepo;
     
     @Override
-    public User createUser(User user) {
-        return userRepo.save(user);
+    public User createUser(String userEmail) {
+        return userRepo.save(new User(userEmail));
     }
+
 
     @Override
     public User getUserByEmailAddress(String emailAddress) {

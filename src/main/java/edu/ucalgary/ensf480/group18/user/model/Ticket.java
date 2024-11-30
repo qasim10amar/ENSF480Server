@@ -2,14 +2,16 @@ package edu.ucalgary.ensf480.group18.user.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Ticket {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ticketId;
+    @UuidGenerator
+    private UUID ticketId;
 
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -41,13 +43,14 @@ public class Ticket {
         this.isPurchased = isPurchased;
     }
 
-    public Long getTicketId() {
+    public UUID getTicketId() {
         return ticketId;
     }
 
-    public void setTicketId(Long ticketId) {
+    public void setTicketId(UUID ticketId) {
         this.ticketId = ticketId;
     }
+
 
     public User getUser() {
         return user;

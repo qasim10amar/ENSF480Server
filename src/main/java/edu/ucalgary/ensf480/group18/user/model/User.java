@@ -30,9 +30,11 @@ public class User {
         this.refundStrategy = new RegularRefundStrategy();
     }
 
-    public User(String usrEmail, RefundStrategy refundStrategy) {
-        this.usrEmail = usrEmail;
-        this.refundStrategy = refundStrategy;
+    @PostLoad
+    private void initializeRefundStrategy() {
+        if (refundStrategy == null) {
+            refundStrategy = new RegularRefundStrategy();
+        }
     }
 
     public Long getUserId() {
@@ -49,6 +51,9 @@ public class User {
     }
 
     public RefundStrategy getRefundStrategy() {
+        if (refundStrategy == null)
+            refundStrategy = new RegularRefundStrategy();
+
         return refundStrategy;
     }
 
