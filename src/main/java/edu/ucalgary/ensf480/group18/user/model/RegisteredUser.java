@@ -4,20 +4,6 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-/*
-Intended modifications:
-- add VIP status, in case user no longer pays anual fee.
-- add admin status, to determine if user is an admin
-- add credit, to store the credit they got as refund.
-
-- remove userId, since email is unique
-- remove returnStrategy, use VIP status to determine refund strategy
-- remove annualFee, since it is a constant value
-- remove address, it's not used
-
-- merge firstName and lastName into one name
-
- */
 @Entity
 public class RegisteredUser {
 
@@ -27,6 +13,10 @@ public class RegisteredUser {
     @Column(nullable = false, columnDefinition = "FLOAT DEFAULT 0.0")
     private float credit;
     private String password;
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private LocalDate VIPLastRenewal;
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean admin;
 
     @OneToOne(mappedBy = "user")
     private Card card;
@@ -34,11 +24,10 @@ public class RegisteredUser {
     public RegisteredUser() {
     }
 
-    public RegisteredUser(String usrEmail, String password) {
-//        super(usrEmail, new RURefundStrategy());
+    public RegisteredUser(String usrEmail, String password, boolean admin) {
         this.usrEmail = usrEmail;
         this.password = password;
-
+        this.admin = admin;
     }
 
     public String getPassword() {
@@ -62,4 +51,31 @@ public class RegisteredUser {
         return usrEmail;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public boolean isVIP() {
+        return VIPLastRenewal != null && VIPLastRenewal.isAfter(LocalDate.now().minusYears(1));
+    }
+
+    public void renewVIP() {
+        this.VIPLastRenewal = LocalDate.now();
+    }
+
+    public float getCredit() {
+        return credit;
+    }
+
+    public void setCredit(float credit) {
+        this.credit = credit;
+    }
+
+    public void useCredit(float amount) {
+        this.credit -= amount;
+    }
+
+    public void addCredit(float amount) {
+        this.credit += amount;
+    }
 }
