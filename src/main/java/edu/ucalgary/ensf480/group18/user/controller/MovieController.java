@@ -24,7 +24,7 @@ public class MovieController {
     private SeatServ seatService;
 
     @Autowired
-    private UserServ userService;
+    private RegisteredUserServ userService;
 
     @Autowired
     private TicketServ ticketService;
@@ -52,7 +52,7 @@ public class MovieController {
     @PostMapping("/{showTimeId}/createTicket")
     public Ticket createTicket(@RequestParam Long seatId, @RequestParam String userEmail){
         Seat seat = seatService.getSeat(seatId);
-        User user = userService.getUserByEmailAddress(userEmail);
+        RegisteredUser user = userService.getUserByEmailAddress(userEmail);
 //        if(user == null){
 //            user = userService.createUser(new User(userEmail));
 //        }

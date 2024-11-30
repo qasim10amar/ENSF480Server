@@ -1,7 +1,7 @@
 package edu.ucalgary.ensf480.group18.user.service;
 
 import edu.ucalgary.ensf480.group18.user.model.Cookie;
-import edu.ucalgary.ensf480.group18.user.model.User;
+import edu.ucalgary.ensf480.group18.user.model.RegisteredUser;
 
 import java.time.LocalDate;
 
@@ -13,7 +13,7 @@ public interface CookieServ {
      * @param user the user for whom the cookie is generated.
      * @return the created Cookie object.
      */
-    Cookie addRow(User user);
+    Cookie addRow(RegisteredUser user);
 
     /**
      * Retrieves the add date for a given token.

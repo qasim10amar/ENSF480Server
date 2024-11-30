@@ -43,31 +43,22 @@ INSERT INTO Theater (theaterNumber, capacity, theaterType) VALUES
 # (5, 1, FALSE, 5, 15),
 # (5, 2, TRUE, 5, 15);
 
--- User Table
-INSERT INTO User (usrEmail) VALUES
-('john.doe@example.com'),
-('jane.smith@example.com'),
-('alice.jones@example.com'),
-('bob.brown@example.com'),
-('charlie.white@example.com'),
-('example.man@gmail.com');
-
--- Card Table
-INSERT INTO Card (cardNum, expiry, cvc, userId) VALUES
-('1234567812355678', '2025-12-01', 123, 1),
-('8765432187654321', '2026-06-01', 456, 2),
-('5555555555555555', '2024-07-15', 789, 3),
-('4444111122223333', '2027-10-20', 345, 4),
-('3333222211114444', '2028-01-01', 678, 5);
 
 -- RegisteredUser Table
-INSERT INTO RegisteredUser (StreetAddress, userId, firstName, lastName, password) VALUES
- (1, 1, 'John', 'Doe', 'password123'),
- (2, 2, 'Jane', 'Smith', 'secure456'),
- (3, 3, 'Alice', 'Jones', 'alicepass'),
- (4, 4, 'Bob', 'Brown', 'bobbypass'),
- (5, 5, 'Charlie', 'White', 'charliepass');
+INSERT INTO RegisteredUser (usrEmail, password) VALUES
+ ('burnice.white@calydon.com', 'password123'),
+ ('anby.demara@cunning.com', 'secure456'),
+ ('grace.howard@belobog.com', 'alicepass'),
+ ('nicole.demara@cunning.com', 'bobbypass'),
+ ('luciana.montefio@calydon.com', 'charliepass');
 
+-- Card Table
+INSERT INTO Card (cardNum, expiry, cvc, usrEmail) VALUES
+    ('1234567812355678', '2025-12-01', 123, 'burnice.white@calydon.com'),
+    ('8765432187654321', '2026-06-01', 456, 'anby.demara@cunning.com'),
+    ('5555555555555555', '2024-07-15', 789, 'grace.howard@belobog.com'),
+    ('4444111122223333', '2027-10-20', 345, 'nicole.demara@cunning.com'),
+    ('3333222211114444', '2028-01-01', 678, 'luciana.montefio@calydon.com');
 # -- Ticket Table
 # INSERT INTO Ticket (userId, seatId, isPurchased, ticketPrice) VALUES
 # (1, 2, TRUE, 15),

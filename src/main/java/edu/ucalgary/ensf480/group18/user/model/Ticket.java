@@ -12,8 +12,8 @@ public class Ticket {
     private Long ticketId;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
-    private User user;
+    @JoinColumn(name = "usrEmail")
+    private RegisteredUser user;
 
     @ManyToOne
     @JoinColumn(name = "seatId")
@@ -27,14 +27,14 @@ public class Ticket {
 
     }
 
-    public Ticket(User user, Seat seat) {
+    public Ticket(RegisteredUser user, Seat seat) {
         this.user = user;
         this.seat = seat;
         this.ticketPrice = seat.getSeatPrice();
         this.isPurchased = false;
     }
 
-    public Ticket(User user, Seat seat, Boolean isPurchased) {
+    public Ticket(RegisteredUser user, Seat seat, Boolean isPurchased) {
         this.user = user;
         this.seat = seat;
         this.ticketPrice = seat.getSeatPrice();
@@ -49,11 +49,11 @@ public class Ticket {
         this.ticketId = ticketId;
     }
 
-    public User getUser() {
+    public RegisteredUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(RegisteredUser user) {
         this.user = user;
     }
 

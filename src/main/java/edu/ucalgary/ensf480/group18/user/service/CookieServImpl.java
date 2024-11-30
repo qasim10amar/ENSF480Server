@@ -1,7 +1,7 @@
 package edu.ucalgary.ensf480.group18.user.service;
 
 import edu.ucalgary.ensf480.group18.user.model.Cookie;
-import edu.ucalgary.ensf480.group18.user.model.User;
+import edu.ucalgary.ensf480.group18.user.model.RegisteredUser;
 import edu.ucalgary.ensf480.group18.user.repository.CookieRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +11,6 @@ import java.time.LocalDate;
 
 @Service
 public class CookieServImpl implements CookieServ {
-
-
     @Autowired
     private CookieRepo cookieRepository;
 
@@ -21,12 +19,12 @@ public class CookieServImpl implements CookieServ {
     }
 
     @Override
-    public Cookie addRow(User user) {
+    public Cookie addRow(RegisteredUser user) {
         String token = generateRandomToken();
         LocalDate currentDate = LocalDate.now();
 
         Cookie cookie = new Cookie();
-        cookie.setUser(user);
+//        cookie.setUser(user);
         cookie.setUserToken(token);
         cookie.setAddDate(currentDate);
 

@@ -17,7 +17,7 @@ public class Cookie {
 
     @ManyToOne
     @JoinColumn(name = "userEmail", nullable = false)
-    private User user;
+    private RegisteredUser user;
 
     // Getters and Setters
     public int getId() {
@@ -44,11 +44,11 @@ public class Cookie {
         this.addDate = addDate;
     }
 
-    public User getUser() {
+    public RegisteredUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(RegisteredUser user) {
         this.user = user;
     }
 }

@@ -1,6 +1,6 @@
 package edu.ucalgary.ensf480.group18.user.controller;
 
-import edu.ucalgary.ensf480.group18.user.model.User;
+import edu.ucalgary.ensf480.group18.user.model.RegisteredUser;
 import edu.ucalgary.ensf480.group18.user.service.CookieServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class CookieController {
     }
 
     @PostMapping("/add")
-    public String addRow(@RequestBody User user) {
+    public String addRow(@RequestBody RegisteredUser user) {
         return "Cookie added with token: " + cookieService.addRow(user).getUserToken();
     }
 
