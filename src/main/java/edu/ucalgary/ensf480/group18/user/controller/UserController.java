@@ -1,9 +1,6 @@
 package edu.ucalgary.ensf480.group18.user.controller;
 
-import edu.ucalgary.ensf480.group18.user.model.Card;
-import edu.ucalgary.ensf480.group18.user.model.RegisteredUser;
-import edu.ucalgary.ensf480.group18.user.model.Ticket;
-import edu.ucalgary.ensf480.group18.user.model.User;
+import edu.ucalgary.ensf480.group18.user.model.*;
 import edu.ucalgary.ensf480.group18.user.service.*;
 import jdk.jfr.Registered;
 import org.apache.coyote.Request;
@@ -33,6 +30,9 @@ public class UserController {
     @Autowired
     private CardServ cardService;
 
+    @Autowired
+    private PaymentServ paymentService;
+
     @GetMapping("/{UsrEmail}")
     public User findUser(@PathVariable String UsrEmail){
         return userService.getUserByEmailAddress(UsrEmail);
@@ -41,6 +41,11 @@ public class UserController {
     @GetMapping("/getTickets/{UsrEmail}")
     public List<Ticket> findRegisteredUserTickets(@PathVariable String UsrEmail){
         return ticketService.getTicketByEmailAddress(UsrEmail);
+    }
+
+    @GetMapping("/getPayments/{UsrEmail}")
+    public List<Payment> findUserPayments(@PathVariable String UsrEmail){
+        return paymentService.findUserPayments(UsrEmail);
     }
 
     @PostMapping("/add")

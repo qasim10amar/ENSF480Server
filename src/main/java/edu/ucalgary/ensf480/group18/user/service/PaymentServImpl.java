@@ -6,6 +6,8 @@ import edu.ucalgary.ensf480.group18.user.repository.PaymentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PaymentServImpl implements PaymentServ {
     @Autowired
@@ -33,8 +35,6 @@ public class PaymentServImpl implements PaymentServ {
     public Payment updatePayment(Payment payment) {
         return paymentRepo.save(payment);
     }
-
-    // TODO: Implement refundPayment
     @Override
     public GiftCard refundPayment(Payment payment) {
         double refundAmount = payment.getTicket().getTicketPrice();
@@ -42,6 +42,11 @@ public class PaymentServImpl implements PaymentServ {
         refundAmount = payment.getCard().getUser().getRefundStrategy().calculateRefund(refundAmount);
         //Create a gift card with the refund amount
         return giftCardServ.createGiftCard(new GiftCard(refundAmount));
+    }
+
+    @Override
+    public List<Payment> findUserPayments(String userEmail){
+        return paymentRepo.findPaymentsByUserEmail(userEmail);
     }
 
 
