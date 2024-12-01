@@ -41,8 +41,12 @@ public class PaymentController {
                 throw new IllegalArgumentException("Ticket not found");
 
             card.setUser(ticket.getUser());
+            Card alreadyInDBCard = cardService.getCard(card.getCardNum());
+            if(alreadyInDBCard == null){
+                alreadyInDBCard = cardService.createCard(card);
+            }
 
-            Payment payment = paymentService.createPayment(new Payment(ticket, card));
+            Payment payment = paymentService.createPayment(new Payment(ticket, alreadyInDBCard));
             ticket.setPurchased(true);
             ticketService.updateTicket(ticket);
             //Email the ticket to the user

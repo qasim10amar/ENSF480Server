@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class Card {
     @Id
     private String cardNum;
-
     private LocalDate expiry;
     private int cvc;
 
