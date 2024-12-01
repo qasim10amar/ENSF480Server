@@ -28,24 +28,25 @@ public class PaymentController {
     private MembershipServ membershipService;
 
     @PostMapping("/create")
-    public Payment createPayment(@RequestParam UUID ticketId, @RequestParam String cardNum){
+    public Payment createPayment(@RequestParam UUID ticketId, @RequestBody Card card){
         try{
-            if (ticketId == null || cardNum == null)
+            if (ticketId == null || card == null)
                 throw new IllegalArgumentException("Ticket and card must be provided");
 
-            Card card = cardService.getCard(cardNum);
+
             Ticket ticket = ticketService.getTicket(ticketId);
             if (card == null)
                 throw new IllegalArgumentException("Card not found");
             if (ticket == null)
                 throw new IllegalArgumentException("Ticket not found");
 
+            card.setUser(ticket.getUser());
+
             Payment payment = paymentService.createPayment(new Payment(ticket, card));
             ticket.setPurchased(true);
             ticketService.updateTicket(ticket);
             //Email the ticket to the user
             emailNotificationService.emailTicket(ticket);
-
             return payment;
         }
         catch (Exception e){

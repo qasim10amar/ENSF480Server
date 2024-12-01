@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -48,28 +49,36 @@ public class MovieController {
     public List<Movie> searchMovies(@RequestParam String title){
         return movieService.searchMovies(title.toLowerCase());
     }
+    @PostMapping("/{showTimeId}/createTickets")
+    public List<Ticket> createTickets(
+            @PathVariable Long showTimeId,
+            @RequestParam String userEmail,
+            @RequestBody List<Long> seatIds) {
 
-    @PostMapping("/{showTimeId}/createTicket")
-    public Ticket createTicket(@RequestParam Long seatId, @RequestParam String userEmail){
-        Seat seat = seatService.getSeat(seatId);
+        List<Ticket> createdTickets = new ArrayList<>();
+
         User user = userService.getUserByEmailAddress(userEmail);
-//        if(user == null){
-//            user = userService.createUser(new User(userEmail));
-//        }
-        if(user == null || seat == null){
-            return null;
+
+        if (user == null) {
+            user = userService.createUser(userEmail);
         }
-        //Check if the seat is available
-        if(!seat.getIsReserved()){
-            Ticket ticket = new Ticket(user, seat);
-            //Create a ticket
-            ticketService.createTicket(ticket);
-            //Set the seat to unavailable
-            seat.setIsReserved(true);
-            seatService.updateSeat(seat);
-            return ticket;
+
+        for (Long seatId : seatIds) {
+            Seat seat = seatService.getSeat(seatId);
+            if (seat == null) {
+                throw new IllegalArgumentException("Seat ID " + seatId + " is invalid.");
+            }
+
+            // Check if the seat is available
+            if (!seat.getIsReserved()) {
+                Ticket ticket = new Ticket(user, seat);
+                ticketService.createTicket(ticket);
+                seat.setIsReserved(true);
+                seatService.updateSeat(seat);
+                createdTickets.add(ticket);
+            }
         }
-        return null;
+        return createdTickets;
     }
 
     @PostMapping("/create")
@@ -96,6 +105,11 @@ public class MovieController {
         movieService.updateMovie(savedMovie);
 
         return savedMovie;
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String handleException(IllegalArgumentException e){
+        return e.getMessage();
     }
 
 
