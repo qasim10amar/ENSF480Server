@@ -69,5 +69,25 @@ public class UserController {
         return newUser;
     }
 
+    @GetMapping("/login")
+    public ResponseEntity<?> login(@RequestParam String userEmail, @RequestParam String password) {
+        RegisteredUser user = registeredUserService.getRegisteredUserLogin(userEmail, password);
+
+        if (user == null) {
+            // Return 401 Unauthorized if the email or password is invalid
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password.");
+        }
+
+        user.setPassword(null); // Nullify the password before returning the user object
+        return ResponseEntity.ok(user); // Return 200 OK with user details
+    }
+
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String handleException(IllegalArgumentException e){
+        return e.getMessage();
+    }
+
+
 
 }

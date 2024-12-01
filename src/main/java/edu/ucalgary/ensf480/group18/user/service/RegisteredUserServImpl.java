@@ -27,6 +27,33 @@ public class RegisteredUserServImpl implements RegisteredUserServ {
         return registeredUserRepo.findAll(); // Fetch all registered users
     }
 
+    public RegisteredUser getRegisteredUserLogin(String usrEmail, String password) {
+        // Fetch the user by email
+        RegisteredUser user = registeredUserRepo.findByEmailAddress(usrEmail);
+
+        // If user is found
+        if (user != null) {
+            System.out.println("Retrieved User: " + user.getUsrEmail());
+            System.out.println("Input Password: " + password);
+            System.out.println("Stored Password: " + user.getPassword());
+
+            // Compare passwords
+            if (password.equals(user.getPassword())) {
+                System.out.println("Login successful.");
+                return user; // Return user if password matches
+            } else {
+                System.out.println("Passwords do not match.");
+            }
+        } else {
+            System.out.println("User not found with email: " + usrEmail);
+        }
+
+        return null; // Return null if login fails
+    }
+
+
+
+
 //    @Override
 //    public void deleteUser(RegisteredUser registeredUser) {
 //        registeredUserRepo.delete(registeredUser);

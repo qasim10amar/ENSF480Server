@@ -9,5 +9,7 @@ public interface RegisteredUserServ {
     RegisteredUser getUserByEmailAddress(String emailAddress);
 
     List<RegisteredUser> getAllRegisteredUsers();
+
+    RegisteredUser getRegisteredUserLogin(String usrEmail, String password);
 }
 
