@@ -6,6 +6,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -57,6 +58,19 @@ public class EmailNotificationServImpl implements EmailNotificationServ, MovieOb
             message.setTo(email);
             message.setSubject("Your Gift Card Details");
             message.setText(buildGiftCardEmailBody(giftCard));
+            mailSender.send(message);
+        }
+    }
+
+    public void sendMembershipRenewalEmail(String email, LocalDate expiryDate) {
+        if (email != null) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(email);
+            message.setSubject("Membership Renewal Reminder");
+            message.setText("Dear User,\n\n" +
+                    "Your membership will expire on " + expiryDate + ".\n" +
+                    "Please renew your membership to continue enjoying our services.\n\n" +
+                    "Best regards,\nYour Movie Service Team");
             mailSender.send(message);
         }
     }

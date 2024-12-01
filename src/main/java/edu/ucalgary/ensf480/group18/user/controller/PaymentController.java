@@ -1,10 +1,7 @@
 package edu.ucalgary.ensf480.group18.user.controller;
 
 import edu.ucalgary.ensf480.group18.user.model.*;
-import edu.ucalgary.ensf480.group18.user.service.CardServ;
-import edu.ucalgary.ensf480.group18.user.service.EmailNotificationServ;
-import edu.ucalgary.ensf480.group18.user.service.PaymentServ;
-import edu.ucalgary.ensf480.group18.user.service.TicketServ;
+import edu.ucalgary.ensf480.group18.user.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +23,9 @@ public class PaymentController {
 
     @Autowired
     private EmailNotificationServ emailNotificationService;
+
+    @Autowired
+    private MembershipServ membershipService;
 
     @PostMapping("/create")
     public Payment createPayment(@RequestParam UUID ticketId, @RequestParam String cardNum){
@@ -83,6 +83,30 @@ public class PaymentController {
             throw new IllegalArgumentException("Cannot refund payment within 3 days of show time");
         }
 
+    }
+
+
+    @PostMapping("/membership/renew")
+    public String renewMembership(@RequestParam String email, @RequestParam double paymentAmount) {
+        try {
+            boolean success = membershipService.processMembershipPayment(email, paymentAmount);
+            if (success) {
+                return "Membership successfully renewed.";
+            }
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
+        return "Failed to renew membership.";
+    }
+
+    @GetMapping("/membership/status")
+    public String checkMembershipStatus(@RequestParam String email) {
+        try {
+            boolean isActive = membershipService.isMembershipActive(email);
+            return isActive ? "Membership is active." : "Membership has expired.";
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
 
 

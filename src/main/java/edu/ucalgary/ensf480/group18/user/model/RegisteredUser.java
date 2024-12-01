@@ -14,6 +14,8 @@ public class RegisteredUser extends User {
     @JoinColumn(name = "streetAddress")
     private Address address;
 
+    private LocalDate membershipExpiry;
+
     @OneToOne(mappedBy = "user")
     private Card card;
 
@@ -26,6 +28,7 @@ public class RegisteredUser extends User {
         this.lastName = lastName;
         this.password = password;
         this.address = address;
+        this.membershipExpiry = LocalDate.now().plusYears(1);
         setRefundStrategy(new RURefundStrategy());
     }
 
@@ -87,6 +90,26 @@ public class RegisteredUser extends User {
 
     public void setRefundStrategy(RefundStrategy refundStrategy) {
         this.refundStrategy = refundStrategy;
+    }
+
+    public LocalDate getMembershipExpiry() {
+        return membershipExpiry;
+    }
+
+    public void setMembershipExpiry(LocalDate membershipExpiry) {
+        this.membershipExpiry = membershipExpiry;
+    }
+
+    public boolean isMembershipActive() {
+        return membershipExpiry != null && LocalDate.now().isBefore(membershipExpiry);
+    }
+
+    public void renewMembership() {
+        if (isMembershipActive()) {
+            membershipExpiry = membershipExpiry.plusYears(1); // Extend existing membership
+        } else {
+            membershipExpiry = LocalDate.now().plusYears(1); // Start new membership
+        }
     }
 
 }

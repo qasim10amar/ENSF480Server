@@ -3,9 +3,6 @@ package edu.ucalgary.ensf480.group18.user.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.Collection;
-import java.util.List;
-
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
@@ -15,8 +12,6 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String usrEmail;
-
-
 
     @Transient
     @JsonIgnore
