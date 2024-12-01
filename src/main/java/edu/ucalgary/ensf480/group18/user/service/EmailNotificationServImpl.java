@@ -1,22 +1,41 @@
 package edu.ucalgary.ensf480.group18.user.service;
 
-import edu.ucalgary.ensf480.group18.user.model.GiftCard;
-import edu.ucalgary.ensf480.group18.user.model.MovieObserver;
-import edu.ucalgary.ensf480.group18.user.model.Ticket;
+import edu.ucalgary.ensf480.group18.user.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class EmailNotificationServImpl implements EmailNotificationServ{
+public class EmailNotificationServImpl implements EmailNotificationServ, MovieObserver{
 
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private RegisteredUserServImpl registeredUserServ;
+
     @Override
-    public void sendNewMovieEmail(MovieObserver movieObserver) {
-        System.out.println();
+    public void notifyNewMovie(Movie movie) {
+        // Fetch all registered users
+        List<RegisteredUser> users = registeredUserServ.getAllRegisteredUsers();
+
+        // Send email to each user
+        for (RegisteredUser user : users) {
+            sendNewMovieEmail(user.getUsrEmail(), movie);
+        }
+    }
+    @Override
+    public void sendNewMovieEmail(String email, Movie movie) {
+        if (email != null) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(email);
+            message.setSubject("New Movie Added: " + movie.getTitle());
+            message.setText(buildNewMovieEmailBody(movie));
+            mailSender.send(message);
+        }
     }
 
     @Override
@@ -58,5 +77,15 @@ public class EmailNotificationServImpl implements EmailNotificationServ{
                 "Amount: " + giftCard.getBalance() + "\n" +
                 "Expiry Date: " + giftCard.getExpiryDate() + "\n" +
                 "Enjoy your gift card!";
+    }
+
+    private String buildNewMovieEmailBody(Movie movie) {
+        return "Dear User,\n\n" +
+                "We are excited to announce a new movie in our collection!\n" +
+                "Title: " + movie.getTitle() + "\n" +
+                "Genre: " + movie.getGenre() + "\n" +
+                "Release Date: " + movie.getReleaseDate() + "\n\n" +
+                "Check it out now!\n\n" +
+                "Best regards,\nYour Movie Service Team";
     }
 }

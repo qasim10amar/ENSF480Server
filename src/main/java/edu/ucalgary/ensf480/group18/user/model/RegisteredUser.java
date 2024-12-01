@@ -11,7 +11,7 @@ public class RegisteredUser extends User {
     private String lastName;
     private String password;
     @ManyToOne
-    @JoinColumn(name = "StreetAddress")
+    @JoinColumn(name = "streetAddress")
     private Address address;
 
     @OneToOne(mappedBy = "user")
@@ -88,9 +88,5 @@ public class RegisteredUser extends User {
     public void setRefundStrategy(RefundStrategy refundStrategy) {
         this.refundStrategy = refundStrategy;
     }
-
-
-
-
 
 }

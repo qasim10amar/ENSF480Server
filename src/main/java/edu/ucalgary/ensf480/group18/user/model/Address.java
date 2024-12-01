@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long streetAddress;
 
     private String street;
     private String city;
@@ -28,12 +28,12 @@ public class Address {
         this.country = country;
     }
 
-    public Long getId() {
-        return id;
+    public Long getStreetAddress() {
+        return streetAddress;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setStreetAddress(Long streetAddress) {
+        this.streetAddress = streetAddress;
     }
 
     public String getStreet() {

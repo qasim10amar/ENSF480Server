@@ -1,9 +1,10 @@
 package edu.ucalgary.ensf480.group18.user.model;
 
-import java.util.Observer;
+import edu.ucalgary.ensf480.group18.user.model.Movie;
+import edu.ucalgary.ensf480.group18.user.model.MovieObserver;
 
 public interface MovieSubject {
-    void addObserver(Observer observer);
-    void removeObserver(Observer observer);
+    void registerObserver(MovieObserver observer);
+    void removeObserver(MovieObserver observer);
     void notifyObservers(Movie movie);
 }
