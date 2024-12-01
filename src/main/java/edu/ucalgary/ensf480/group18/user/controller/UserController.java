@@ -44,10 +44,10 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addUser(@RequestParam String userEmail){
+    public ResponseEntity<?> addUser(@RequestParam String userEmail) {
         // if user email is already exist throw error
         if(userService.getUserByEmailAddress(userEmail) != null) {
-            return ResponseEntity.badRequest().body("User with this email already exists."); // Return 400 with error message
+            return ResponseEntity.badRequest().body(userEmail); // Return 400 with error message
         }
         try {
             User createdUser = userService.createUser(userEmail);

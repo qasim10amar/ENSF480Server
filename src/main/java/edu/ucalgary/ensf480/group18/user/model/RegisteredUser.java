@@ -29,15 +29,6 @@ public class RegisteredUser extends User {
         setRefundStrategy(new RURefundStrategy());
     }
 
-    @PostLoad
-    private void initializeRefundStrategy() {
-        if (refundStrategy == null) {
-            refundStrategy = new RURefundStrategy();
-        }
-    }
-
-
-
     public static double getAnnualFee() {
         return annualFee;
     }
